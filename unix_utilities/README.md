@@ -25,7 +25,7 @@ A collection of minimal Unix command-line utilities implemented in C as part of 
 git clone https://github.com/ayabedair/system-programming.git
 cd system-programming/unix_utilities
 
-# re-build all utilities (if needed)
+# Build all utilities
 gcc mymv.c -o mymv
 gcc mycp.c -o mycp
 gcc myecho.c -o myecho
