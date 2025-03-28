@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int runMyexport(int argc, char* argv[]) {
+	// print all, if no argument was passed
+	if (argc == 1) {
+		extern char** environ;
+		for (char** env = environ; *env; env++) {
+			printf("%s\n", *env);
+		}
+		return 0;
+	}
+
+        for (int i = 1; i < argc; ++i) {
+		// Check if the input contains an '=' sign
+    char *equal_sign = strchr(variable, '=');
+
+    if (equal_sign == NULL) {
+        // No '=' sign, just print the variable if it exists
+        char *value = getenv(variable);
+        if (value != NULL) {
+            printf("%s=%s\n", variable, value);
+        } else {
+            printf("Variable %s not found\n", variable);
+        }
+    } else {
+        // Split into name and value
+        *equal_sign = '\0'; // Temporarily terminate the string at '='
+        char *name = variable;
+        char *value = equal_sign + 1;
+
+        // Set the environment variable
+        if (setenv(name, value, 1) != 0) {
+            perror("export failed");
+        } else {
+            printf("Exported %s=%s\n", name, value);
+        }
+
+        // Restore the '=' sign (optional, as we might not need the original string)
+        *equal_sign = '=';
+    }
+	}
+
+}
+
